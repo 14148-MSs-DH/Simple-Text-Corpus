@@ -1,0 +1,22 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>A sample T​EI document</title>
+            </titleStmt>
+            <publicationStmt>
+                <publisher> K​ANTL</publisher>
+                <pubPlace>Ghent</pubPlace>
+                <date when="2009"/>
+            </publicationStmt>
+            <sourceDesc>
+                <p>No source, born digital</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <p>This is a sample paragraph, illustrating a <name type="organisation">T​EI</name> document.</p>
+        </body>
+    </text>
+</TEI>
