@@ -2,14 +2,14 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>MS 12345 Casey Museum</title>
+                <title>TS 12345 Casey Museum</title>
             </titleStmt>
             <publicationStmt>
             </publicationStmt>
             <sourceDesc>
                  <msDesc>
                     <msIdentifier>
-                        <idno type="IIP">MS 12345</idno>
+                        <idno type="IIP">TS 12345</idno>
                     </msIdentifier>
                     <!--  *************************************  <msContents>  ********************************* -->
                     <msContents>
@@ -20,8 +20,8 @@
                     </msContents>
                     <!--  *************************************  <physDesc>  ********************************* -->
                     <physDesc>
-                        <objectDesc ana="architrave">
-                            <supportDesc ana="papyrus.scroll">
+                        <objectDesc ana="tombstone.inscribed">
+                            <supportDesc ana="marble">
                                 <support>
                                     <p/>
                                     <dimensions type="surface" unit="cm">
@@ -34,7 +34,7 @@
                                 </condition>
                             </supportDesc>
                             <layoutDesc>
-                                <layout columns="1" writtenLines="7">
+                                <layout columns="1" writtenLines="4">
                                     <p/>
                                 </layout>
                             </layoutDesc>
