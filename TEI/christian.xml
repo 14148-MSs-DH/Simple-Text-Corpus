@@ -2,14 +2,14 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>TS 12345 Casey Museum</title>
+                <title>TS 42 Casey Museum</title>
             </titleStmt>
             <publicationStmt>
             </publicationStmt>
             <sourceDesc>
                  <msDesc>
                     <msIdentifier>
-                        <idno type="IIP">TS 12345</idno>
+                        <idno type="IIP">TS 42</idno>
                     </msIdentifier>
                     <!--  *************************************  <msContents>  ********************************* -->
                     <msContents>
