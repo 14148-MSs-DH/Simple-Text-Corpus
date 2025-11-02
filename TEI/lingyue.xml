@@ -92,9 +92,30 @@
   <body>
 
     <!-- 1️⃣ Transcription (physical lines follow manuscript) -->
+    <div type="edition" subtype="transcription" xml:lang="sa" script="Deva">
+    <pb n="Q90r" facs="#folioQ90r"/>
+    <head>Transcription (Devanāgarī)</head>
+
+    <ab>
+        षेना यात्यङ गुरुदर्शने 
+        <gap reason="illegible" quantity="3" unit="character"/> 
+        त्रितङ्ग्र त्रिभिर् एव <supplied reason="lost">च्</supplied>ोद्यं 
+        ||८७||<lb/>
+    </ab>
+
+    <ab>
+        शते ऽष्टकोग्राधशता धिके द्वे गत्वाष्टवर्गेण शतद्वयेन ।
+        वक्रे ऽष्टशट्कोण चतुर्गुणा षड् <lb/>
+        गत्वा दिना तिष्ठति 
+        <gap reason="illegible" quantity="3" unit="character"/>
+        <supplied reason="lost"><unclear>ः</unclear></supplied>
+        ||८<supplied reason="lost"><unclear>८</unclear></supplied>||<lb/>
+    </ab>
+    </div>
+
+     <!-- 2️⃣ Transcription (Romanized) -->
     <div type="edition" subtype="transcription" xml:lang="sa" script="Deva-Latn">
-      <pb n="Q90r" facs="#folioQ90r"/>
-      <head>Transcription</head>
+      <head>Transcription (Romanized)</head>
 
       <ab>
         ṣena yātyaṅ gurudarśane
@@ -107,24 +128,26 @@
         vakre 'ṣṭaśaṭkoṇa caturguṇā ṣaḍ <lb/>
         gatvā dinā tiṣṭhati
         <gap reason="illegible" quantity="3" unit="character"/>
-        <supplied reason="lost">?ḥ</supplied>
-        ||8<supplied reason="lost"><unclear>8</unclear></supplied>||
+        <supplied reason="lost"><unclear>ḥ</unclear></supplied>
+        ||8<supplied reason="lost"><unclear>8</unclear></supplied>||<lb/>
       </ab>
     </div>
 
-    <!-- 2️⃣ Edited text -->
+
+    <!-- 3️⃣ Edited text (normalized Latin transcription) -->
     <div type="edition" subtype="interpretive" xml:lang="sa" script="Deva-Latn">
-      <head>Edited Text</head>
-      <ab>
+    <head>Edited Text (Romanized)</head>
+    <ab>
         śeṣeṇa prācyāparadarśane tu jñena tritaṅka tribhir eva vādyam ||45||<lb/>
-      </ab>
-      <ab>
+    </ab>
+    <ab>
         śate 'ṣṭakāgre 'rdhaśatādhike dve gatvāṣṭavargeṇa śatadvayena |
         vakre 'ṣṭaṣaṭkeṇa caturguṇaṃ ṣaḍ gatvā dinān tiṣṭhati pañca śukraḥ ||46||<lb/>
-      </ab>
+    </ab>
     </div>
 
-    <!-- 3️⃣ Translation -->
+
+    <!-- 4️⃣ Translation -->
     <div type="translation" xml:lang="en">
       <head>Translation</head>
       <ab>
