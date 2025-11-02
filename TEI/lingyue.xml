@@ -98,8 +98,8 @@
 
     <ab>
         षेन यात्यङ गुरुदर्शने 
-        <gap reason="illegible" quantity="3" unit="character"/> 
-        त्रितङ्ग्र त्रिभिर् एव <supplied reason="lost">च्</supplied>ोद्यं 
+        <gap reason="lost" quantity="3" unit="character"/> 
+        त्रितङ्ग्र त्रिभिर् एव <supplied reason="illegible">च्</supplied>ोद्यं 
         ||८७||<lb/>
     </ab>
 
@@ -107,7 +107,7 @@
         शते ऽष्टकोग्राधशता धिके द्वे गत्वाष्टवर्गेण शतद्वयेन ।
         वक्रे ऽष्टशट्कोण चतुर्गुणा षड् <lb/>
         गत्वा दिना तिष्ठति 
-        <gap reason="illegible" quantity="3" unit="character"/>
+        <gap reason="lost" quantity="3" unit="character"/>
         <supplied reason="lost"><unclear>ः</unclear></supplied>
         ||८<supplied reason="lost"><unclear>८</unclear></supplied>||<lb/>
     </ab>
@@ -119,15 +119,15 @@
 
       <ab>
         ṣena yātyaṅ gurudarśane
-        <gap reason="illegible" quantity="3" unit="character"/>
-        tritaṅgra tribhir eva <supplied reason="lost">c</supplied>odyam ||87||<lb/>
+        <gap reason="lost" quantity="3" unit="character"/>
+        tritaṅgra tribhir eva <supplied reason="illegible">c</supplied>odyam ||87||<lb/>
       </ab>
 
       <ab>
         śate 'ṣṭakogrādhaśatā dhike dve gatvāṣṭavargeṇa śatadvayena |
         vakre 'ṣṭaśaṭkoṇa caturguṇā ṣaḍ <lb/>
         gatvā dinā tiṣṭhati
-        <gap reason="illegible" quantity="3" unit="character"/>
+        <gap reason="lost" quantity="3" unit="character"/>
         <supplied reason="lost"><unclear>ḥ</unclear></supplied>
         ||8<supplied reason="lost"><unclear>8</unclear></supplied>||<lb/>
       </ab>
