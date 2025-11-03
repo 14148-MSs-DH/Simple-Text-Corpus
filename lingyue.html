@@ -96,8 +96,11 @@
             const xmlText = await res.text();
 
             // Parse XML (TEI usually uses a default namespace)
+            // Parse XML and strip namespace manually to preserve all TEI tags
             const parser = new DOMParser();
-            const xml = parser.parseFromString(xmlText, "application/xml");
+            let xmlTextNoNS = xmlText.replace(/xmlns="[^"]+"/, "");  // 👈 去掉默认 namespace
+            const xml = parser.parseFromString(xmlTextNoNS, "text/xml");
+
 
             // Basic parse error check
             if (xml.getElementsByTagName("parsererror").length) {
@@ -123,6 +126,8 @@
         // Minimal TEI → HTML mapping
         function teiNodeToHTML(node) {
             // Text nodes
+            console.log("NODE:", node.localName);  // ← 这一行新加的，调试标签用（即嵌套的XML结构能否正确在网页端被渲染出来，这次解决了unclear不被显示为问号的情况）
+            if (node.outerHTML) console.log("RAW:", node.outerHTML);  // ← 这一行新加的，保留为调试模板，在大型 XML 项目中有助于排查 namespace 丢失，可注释掉
             if (node.nodeType === Node.TEXT_NODE) {
             return document.createTextNode(node.nodeValue);
             }
@@ -265,25 +270,39 @@
                 }
 
                 case "supplied": {
-                // 显示重建的内容 <c>
-                const span = el("span", "tei-supplied");
-                const text = textContentDeep(node);
-                span.textContent = "<" + text + ">";
-                return span;
+                    // 显示重建的内容 <...>
+                    const span = el("span", "tei-supplied");
+                    // 检查是否原本包含 <unclear>
+                    const hasUnclear = node.getElementsByTagName("unclear").length > 0;
+                    const text = textContentDeep(node);
+                    if (hasUnclear) {
+                        // 正常显示 <?ः>
+                        span.textContent = "<?" + text + ">";
+                    } else {
+                        // 没有unclear子节点时，保留原逻辑
+                        span.textContent = "<" + text + ">";
+                    }
+                    return span;
                 }
 
+
                 case "unclear": {
-                // 显示不确定字符 <8> 或与 supplied 嵌套时 <?ḥ>
-                const span = el("span", "tei-unclear");
-                const text = textContentDeep(node);
-                // 如果嵌套在 supplied 中，则用 <?…>
-                if (node.parentNode && node.parentNode.localName === "supplied") {
-                    span.innerHTML = "&lt;?" + text + "&gt;";
-                } else {
-                    span.innerHTML = "&lt;" + text + "&gt;";
+                    const span = el("span", "tei-unclear");
+                    const text = textContentDeep(node);
+
+                    // console.log("UNCLEAR NODE:", text);  ← 这两行新加的，调试unclear标签在网页inspect部分的console里debug用
+                    // console.log("FINAL OUTPUT:", `<?${text}>`);  // ← 这两行新加的，仅为debug输出结果用
+
+                    if (node.parentNode && node.parentNode.localName === "supplied") {
+                        span.textContent = `<?${text}>`;
+                    } else {
+                        span.textContent = `<${text}>`;
+                    }
+
+                    return span;
                 }
-                return span;
-                }
+
+
 
                 case "facsimile":
                 case "surface": {
