@@ -278,9 +278,9 @@
                 const text = textContentDeep(node);
                 // 如果嵌套在 supplied 中，则用 <?…>
                 if (node.parentNode && node.parentNode.localName === "supplied") {
-                    span.textContent = "<?" + text + ">";
+                    span.innerHTML = "&lt;?" + text + "&gt;";
                 } else {
-                    span.textContent = "<" + text + ">";
+                    span.innerHTML = "&lt;" + text + "&gt;";
                 }
                 return span;
                 }
