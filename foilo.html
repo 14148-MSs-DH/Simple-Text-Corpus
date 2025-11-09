@@ -38,254 +38,68 @@
         color: #004499;
       }
 
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      li {
+      /* Minimal TEI styling */
+      .tei-doc { line-height: 1.6; }
+      .tei-note { 
+        font-size: 0.95em; 
+        padding-left: 0.8rem; 
+        border-left: 3px solid #ddd; 
+        margin: 0.5rem 0;
         background: #fff;
         padding: 1em;
-        margin-bottom: 1em;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-        transition: transform 0.2s ease;
       }
-
-      li:hover {
-        transform: translateY(-2px);
+      .tei-pb { opacity: 0.6; font-size: 0.9em; }
+      .tei-div { margin: 1rem 0; }
+      .tei-line { margin: 0.5em 0; }
+      .diplomatic { 
+        background: #fff;
+        padding: 1em;
+        border-radius: 8px;
+        margin: 1em 0;
       }
-
-      .no-link {
-        color: #aaa;
-        text-decoration: line-through;
-        cursor: not-allowed;
-        font-style: italic;
-      }
-
-      /* New CSS for the home icon */
-      .home-link {
-        position: absolute;
-        top: 1em;
-        left: -100px;
-      }
-
-      .home-link img {
-        width: 88px;
-        height: auto;
-        border-radius: 4px;
-        cursor: pointer;
-        background-color: #fff;
-        box-shadow: 0 0 5px rgba(0,0,0,0.2);
-      }
-
-      .home-link img:hover {
-        box-shadow: 0 0 8px rgba(0,0,0,0.3);
+      .normalized {
+        background: #fff;
+        padding: 1em;
+        border-radius: 8px;
+        margin: 1em 0;
       }
     </style>
   </head>
   <body>
-    <div id="tei-container"></div>
-    <script type="module">
-        async function loadTEI(fileName, targetSelector) {
-            const target = document.querySelector(targetSelector);
-            if (!target) throw new Error("Target element not found: " + targetSelector);
+    <div id="tei-container">
+      <h1>Beowulf — Opening Lines</h1>
+      
+      <div class="tei-div">
+        <div class="diplomatic">
+          <h3>Diplomatic Text</h3>
+          <div class="tei-line">Hwæt. We Gar-dena in geardagum,</div>
+          <div class="tei-line">þeodcyninga, þrym gefrunon,</div>
+          <div class="tei-line">hu ða æþelingas ellen fremedon.</div>
+        </div>
 
-            try {
-            const res = await fetch(`TEI/${fileName}`, { headers: { "Accept": "application/xml" } });
-            if (!res.ok) throw new Error(`HTTP ${res.status} for TEI/${fileName}`);
-            const xmlText = await res.text();
+        <div class="normalized">
+          <h3>Normalized Text</h3>
+          <div class="tei-line">Hwæt! Wē Gār-Dena in gēar-dagum,</div>
+          <div class="tei-line">þēodcyninga, þrym gefrūnon,</div>
+          <div class="tei-line">hū þā æþelingas ellen fremedon.</div>
+        </div>
 
-            // Parse XML (TEI usually uses a default namespace)
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(xmlText, "application/xml");
+        <div class="tei-note">
+          <h3>Translation</h3>
+          <p>Listen! We have heard of the glory of the Spear-Danes in days of old,<br>
+          of the kings of the people, how those princes performed deeds of courage.</p>
+        </div>
+      </div>
 
-            // Basic parse error check
-            if (xml.getElementsByTagName("parsererror").length) {
-                throw new Error("XML parse error");
-            }
-
-            // Render TEI → HTML
-            const html = teiNodeToHTML(xml.documentElement);
-            target.innerHTML = "";
-            target.appendChild(html);
-            } catch (err) {
-            console.error(err);
-            // Fallback: show raw XML safely
-            target.textContent = "Failed to render TEI. Showing raw XML:\n\n" + (err?.message || "");
-            try {
-                const res2 = await fetch(`TEI/${fileName}`);
-                const raw = await res2.text();
-                target.textContent += "\n\n" + raw;
-            } catch {}
-            }
-        }
-
-        // Minimal TEI → HTML mapping
-        function teiNodeToHTML(node) {
-            // Text nodes
-            if (node.nodeType === Node.TEXT_NODE) {
-            return document.createTextNode(node.nodeValue);
-            }
-
-            // Ignore comments and processing instructions
-            if (node.nodeType !== Node.ELEMENT_NODE) {
-            return document.createDocumentFragment();
-            }
-
-            const name = node.localName; // works regardless of TEI namespace
-            const frag = document.createDocumentFragment();
-
-            // Helper to render children
-            const renderChildren = (parentEl = null) => {
-            const container = parentEl || document.createDocumentFragment();
-            for (const child of node.childNodes) {
-                container.appendChild(teiNodeToHTML(child));
-            }
-            return container;
-            };
-
-            // Map a few common TEI elements
-            switch (name) {
-            case "TEI":
-            case "teiCorpus": {
-                const wrapper = el("article", "tei-doc");
-                wrapper.appendChild(renderChildren());
-                return wrapper;
-            }
-            case "teiHeader": {
-                // Skip header in main view but keep title if present
-                const titleStmt = node.getElementsByTagNameNS("*", "titleStmt")[0];
-                const titleEl = titleStmt?.getElementsByTagNameNS("*", "title")[0];
-                if (titleEl) {
-                const h1 = el("h1");
-                h1.textContent = textContentDeep(titleEl);
-                return h1;
-                }
-                return document.createDocumentFragment();
-            }
-            case "text": {
-                const section = el("section");
-                section.appendChild(renderChildren());
-                return section;
-            }
-            case "body": {
-                const main = el("div", "tei-body");
-                main.appendChild(renderChildren());
-                return main;
-            }
-            case "div": {
-                const div = el("section", "tei-div");
-                // optional head within div
-                const head = node.getElementsByTagNameNS("*", "head")[0];
-                if (head) {
-                const h2 = el("h2");
-                h2.textContent = textContentDeep(head);
-                div.appendChild(h2);
-                }
-                for (const child of node.childNodes) {
-                if (child.nodeType === Node.ELEMENT_NODE && child.localName === "head") continue;
-                div.appendChild(teiNodeToHTML(child));
-                }
-                return div;
-            }
-            case "p": {
-                const p = el("p");
-                p.appendChild(renderChildren());
-                return p;
-            }
-            case "head": {
-                const h2 = el("h2");
-                h2.appendChild(renderChildren());
-                return h2;
-            }
-            case "lb": {
-                return el("br");
-            }
-            case "pb": {
-                const span = el("span", "tei-pb");
-                span.setAttribute("title", "Page break");
-                span.append(" | ");
-                return span;
-            }
-            case "note": {
-                const aside = el("aside", "tei-note");
-                aside.appendChild(renderChildren());
-                return aside;
-            }
-            case "hi": {
-                const rend = node.getAttribute("rend") || "";
-                const tag = /italic|em/.test(rend) ? "em" : /bold|strong/.test(rend) ? "strong" : "span";
-                const elx = el(tag);
-                elx.appendChild(renderChildren());
-                return elx;
-            }
-            case "q": {
-                const q = el("blockquote");
-                q.appendChild(renderChildren());
-                return q;
-            }
-            case "list": {
-                const listType = node.getAttribute("type") || "";
-                const ul = el(listType === "ordered" ? "ol" : "ul");
-                ul.appendChild(renderChildren());
-                return ul;
-            }
-            case "item": {
-                const li = el("li");
-                li.appendChild(renderChildren());
-                return li;
-            }
-            case "lg": {
-                const div = el("div", "tei-lg");
-                div.appendChild(renderChildren());
-                return div;
-            }
-            case "l": {
-                const p = el("p", "tei-line");
-                p.appendChild(renderChildren());
-                return p;
-            }
-            case "ref": {
-                const a = el("a");
-                const href = node.getAttribute("target") || node.getAttribute("url") || "#";
-                a.href = href;
-                a.appendChild(renderChildren());
-                return a;
-            }
-            default: {
-                // Unknown TEI element: render its children inline
-                return renderChildren();
-            }
-            }
-        }
-
-        // Utilities
-        function el(tag, className) {
-            const e = document.createElement(tag);
-            if (className) e.className = className;
-            return e;
-        }
-        function textContentDeep(node) {
-            let s = "";
-            const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
-            let n;
-            while ((n = walker.nextNode())) s += n.nodeValue;
-            return s.trim();
-        }
-
-        // Load the Beowulf TEI file
-        loadTEI("beowulf_tei.xml", "#tei-container");
-    </script>
-
-    <style>
-    /* Minimal styling */
-    .tei-doc { line-height: 1.6; }
-    .tei-note { font-size: 0.95em; padding-left: 0.8rem; border-left: 3px solid #ddd; margin: 0.5rem 0; }
-    .tei-pb { opacity: 0.6; font-size: 0.9em; }
-    .tei-div { margin: 1rem 0; }
-    .tei-line { margin: 0; }
-    </style>
-
+      <div class="manuscript-image">
+        <h3>Manuscript Image</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg" 
+             alt="Beowulf manuscript folio 132r" 
+             style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 1em;">
+        <p style="font-size: 0.9em; color: #666;">Source: British Library, Cotton MS Vitellius A.xv, f.132r</p>
+      </div>
+    </div>
   </body>
 </html>
