@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Foilo – Beowulf TEI</title>
+    <style>
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        background-color: #f8f5f2;
+        color: #333;
+        max-width: 700px;
+        margin: auto;
+        padding: 3em 1.5em;
+        line-height: 1.6;
+        position: relative;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 0.3em;
+      }
+
+      p {
+        margin-bottom: 2em;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0066cc;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #004499;
+      }
+
+      /* Minimal TEI styling */
+      .tei-doc { line-height: 1.6; }
+      .tei-note { 
+        font-size: 0.95em; 
+        padding-left: 0.8rem; 
+        border-left: 3px solid #ddd; 
+        margin: 0.5rem 0;
+        background: #fff;
+        padding: 1em;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      }
+      .tei-pb { opacity: 0.6; font-size: 0.9em; }
+      .tei-div { margin: 1rem 0; }
+      .tei-line { margin: 0.5em 0; }
+      .diplomatic { 
+        background: #fff;
+        padding: 1em;
+        border-radius: 8px;
+        margin: 1em 0;
+      }
+      .normalized {
+        background: #fff;
+        padding: 1em;
+        border-radius: 8px;
+        margin: 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tei-container">
+      <h1>Beowulf — Opening Lines</h1>
+      
+      <div class="tei-div">
+        <div class="diplomatic">
+          <h3>Diplomatic Text</h3>
+          <div class="tei-line">Hwæt. We Gar-dena in geardagum,</div>
+          <div class="tei-line">þeodcyninga, þrym gefrunon,</div>
+          <div class="tei-line">hu ða æþelingas ellen fremedon.</div>
+        </div>
+
+        <div class="normalized">
+          <h3>Normalized Text</h3>
+          <div class="tei-line">Hwæt! Wē Gār-Dena in gēar-dagum,</div>
+          <div class="tei-line">þēodcyninga, þrym gefrūnon,</div>
+          <div class="tei-line">hū þā æþelingas ellen fremedon.</div>
+        </div>
+
+        <div class="tei-note">
+          <h3>Translation</h3>
+          <p>Listen! We have heard of the glory of the Spear-Danes in days of old,<br>
+          of the kings of the people, how those princes performed deeds of courage.</p>
+        </div>
+      </div>
+
+      <div class="manuscript-image">
+        <h3>Manuscript Image</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Beowulf_Cotton_MS_Vitellius_A_XV_f._132r.jpg" 
+             alt="Beowulf manuscript folio 132r" 
+             style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 1em;">
+        <p style="font-size: 0.9em; color: #666;">Source: British Library, Cotton MS Vitellius A.xv, f.132r</p>
+      </div>
+    </div>
+  </body>
+</html>
